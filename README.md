@@ -49,7 +49,7 @@ In order to run the project the following external packages are used:
 
 ## Take it for a spin
 
-1. run indicator in a chart in tradestation first
+1. run ts_plat_api indicator in a chart in Tradestation first (any symbol, any timeframe)
 
 2. run main.py in python
 

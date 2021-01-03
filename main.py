@@ -4,7 +4,8 @@ import time
 
 
 if __name__ == "__main__":
-	dh = DataHost('BTCUSD', "BARS", "MINUTES", 1, "BARS", 1000)
+	# parameters   symbol, chart_type, interval_type, unit, range_type, range_value, session = ""
+	dh = DataHost('BTCUSD', "BARS", "MINUTES", 1, "BARS", 1000, "Crypto")
 
 	#we wait for history to be deployed...
 	# TODO: create a more elegant way	

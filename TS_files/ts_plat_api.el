@@ -271,14 +271,14 @@ begin
 end;
 
 //data request object
-method PriceSeriesProvider createPSP(string name, string symb, int chart_type,int bar_type, int bar_interval, int range_type, int range_value)
+method PriceSeriesProvider createPSP(string name, string symb, int chart_type,int bar_type, int bar_interval, int range_type, int range_value, string session)
 var: PriceSeriesProvider psp, int cnt, string rn;
 Begin
 	try
 		psp = new tsdata.marketdata.PriceSeriesProvider;
 		psp.Name = name;
 		psp.Symbol = symb;
-		psp.SessionName = "Crypto";
+		psp.SessionName = session;//"Crypto";
 		psp.UseNaturalHours = false;
 		psp.Interval.ChartType =chart_type;
 		psp.Interval.IntervalType = bar_type;
@@ -347,6 +347,10 @@ begin
 	Print( "*GD_Cleared event*" );
 end;
 
+method void AnalysisTechnique_UnInitialized( elsystem.Object sender, elsystem.UnInitializedEventArgs args ) 
+begin
+	DestroyGlobalDictionary();
+end;
 
 {	
 	request_data = 
@@ -356,13 +360,14 @@ end;
 			'interval_type': interval_type, 
 			'interval_value': interval_value, 
 			'range_type' : range_type,
-			'range_value' : range_value
+			'range_value' : range_value,
+			'session':'Crypto'
 }	
 
 //parse request and issue price series provider	
 method void _process_request(Dictionary request)
 var: string smb, DataChartType chart_type, DataIntervalType interval_type, DataRangeType range_type, int range_value, int interval_value,
-	tsdata.marketdata.PriceSeriesProvider psp, string key, string str, object obj, string name; 
+	tsdata.marketdata.PriceSeriesProvider psp, string key, string str, object obj, string name, string session; 
 Begin
 	key = request["id"] astype string;
 	
@@ -386,8 +391,15 @@ Begin
 		range_value = request["range_value"] astype int;
 		interval_value = request["interval_value"] astype int;
 		name = request["id"] astype string;
+		if request["session"] <> null and request["session"] astype string <> ""  Then
+		Begin
+			session = request["session"] astype string;
+		End
+		else
+			session = AnalysisTechnique.DataStreams.DefaultStream.SessionName;
 		
-		psp = createPSP(name, smb, chart_type, interval_type, interval_value, range_type, range_value);
+		
+		psp = createPSP(name, smb, chart_type, interval_type, interval_value, range_type, range_value, session);
 
 		psps[key] = psp;
 	End;	
@@ -429,11 +441,9 @@ begin
 	psps = Dictionary.Create();
 	CreateGlobalDictionary();
 	tl = Dictionary.Create();
-	{
-	if GD["Singleton"] <> null Then
+	{if GD["Singleton"] <> null Then
 	Begin
 		Raiseruntimeerror("TS PLAT API should run only once");
 	End;
-	GD["Singleton"] = True;	
-	}
+	GD["Singleton"] = True;	}
 end;

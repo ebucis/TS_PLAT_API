@@ -141,8 +141,8 @@ class _Observer(Observer):
 					if not is_bar_status(bar_status, eBarStatus.Ghost_Bar):
 						self.data_host.df = df.append(data, ignore_index = True)	
 
-def _getDictionaryKey(symb, chart_type, interval_type, unit, range_type, range_value):
-	res = f'{symb}_{chart_type}_{interval_type}_{unit}_{range_type}_{range_value}'
+def _getDictionaryKey(symb, chart_type, interval_type, unit, range_type, range_value, session):
+	res = f'{symb}_{chart_type}_{interval_type}_{unit}_{range_type}_{range_value}_{session}'
 	return res 
 
 #https://api.tradestation.com/v2/stream/barchart/{symbol}/{interval}/{unit}/{startDate}/{endDate}
@@ -154,12 +154,13 @@ def _getDictionaryKey(symb, chart_type, interval_type, unit, range_type, range_v
 the data host and broker
 '''
 class DataHost:
-	def __init__(self, symbol, chart_type, interval_type, unit, range_type, range_value):
+
+	def __init__(self, symbol, chart_type, interval_type, unit, range_type, range_value, session=""):
 		self.changed = False
 		self.data = []
 		self.df = None
 		
-		key = _getDictionaryKey(symbol, chart_type, interval_type, unit, range_type, range_value)
+		key = _getDictionaryKey(symbol, chart_type, interval_type, unit, range_type, range_value, session)
 
 		request_data = {
 			'id': key, 
@@ -168,7 +169,8 @@ class DataHost:
 			'interval_type': interval_type, 
 			'interval_value': unit, 
 			'range_type' : range_type,
-			'range_value' : range_value
+			'range_value' : range_value,
+			'session' : session
 		}
 
 		self.request = request_data

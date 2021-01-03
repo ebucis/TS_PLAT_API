@@ -2,7 +2,7 @@
 
 This project allows to access Tradestation Data through the GlobalDictionary. Thank you to JohnR@TS for providing the Global dictionary example used to create this. 
 
-The python code must be run together with an EasyLanguage indicator that acts as a proxy.
+The python code must be run together with an EasyLanguage indicator that acts as a proxy (see TS_files).
 
 Please use at your own risk. It is still work in progress and relies heavily in COM objects where improper shutdown can lead to TS platform uninteded consequences.
 
@@ -50,7 +50,7 @@ In order to run the project the following external packages are used:
 
 ## Take it for a spin
 
-1. run ts_plat_api indicator in a chart in Tradestation first (any symbol, any timeframe)
+1. run ts_plat_api indicator in a chart in Tradestation first (any symbol, any timeframe, any session available in the platform)
 
 2. run main.py in python
 
@@ -61,6 +61,7 @@ from datahost import DataHost
 import time
 
 if __name__ == "__main__":
+    # parameters   symbol, chart_type, interval_type, unit, range_type, range_value, session = ""
     dh = DataHost('BTCUSD', "BARS", "MINUTES", 1, "BARS", 1000)
 
     #we wait for history to be deployed...

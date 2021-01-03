@@ -429,9 +429,11 @@ begin
 	psps = Dictionary.Create();
 	CreateGlobalDictionary();
 	tl = Dictionary.Create();
+	{
 	if GD["Singleton"] <> null Then
 	Begin
 		Raiseruntimeerror("TS PLAT API should run only once");
 	End;
 	GD["Singleton"] = True;	
+	}
 end;

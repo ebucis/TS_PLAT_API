@@ -35,16 +35,16 @@ In order to run the project the following external packages are used:
     Python 3.8.0 (tags/v3.8.0:fa919fd, Oct 14 2019, 19:21:23)    
 
 2. Reactive Extensions (RxPy3)
-    pip install RxPy3
+    * pip install RxPy3
 
 3. FinPlot (for the chart):
-    pip install finplot
+    * pip install finplot
 
 4. Debugpy (to create code breakpoints in multiple threads):
-    pip install debugpy
+    * pip install debugpy
 
 5. Other python packages
-    pip install pandas
+    * pip install pandas
 
 
 ## Take it for a spin

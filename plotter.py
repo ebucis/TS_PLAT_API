@@ -20,7 +20,7 @@ class Plotter():
 				print(ex)
 
 		fplt.timer_callback(upd, 0.1) # update in 10 Hz
-		fplt.autoviewrestore()
+		#fplt.autoviewrestore()
 		fplt.show()
 
 	def update_plot(self):

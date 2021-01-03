@@ -6,6 +6,7 @@ The python code must be run together with an EasyLanguage indicator that acts as
 
 Please use at your own risk. It is still work in progress and relies heavily in COM objects where improper shutdown can lead to TS platform uninteded consequences.
 
+![Alt text](images/ts_plat_api.png?raw=true "TS PLAT API in action")
 
 ## Configuration
 

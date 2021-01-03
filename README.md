@@ -54,7 +54,7 @@ In order to run the project the following external packages are used:
 2. run main.py in python
 
 ## main.py code
-
+```python
 from plotter import Plotter
 from datahost import DataHost
 import time
@@ -72,3 +72,4 @@ if __name__ == "__main__":
     plotter = Plotter(dh)
 
     #finplot blocks the main thread...no need to wait
+```
